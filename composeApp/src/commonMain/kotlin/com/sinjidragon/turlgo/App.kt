@@ -20,6 +20,7 @@ import turlgo.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App() {
     MaterialTheme {
+<<<<<<< HEAD
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
@@ -33,5 +34,8 @@ fun App() {
                 }
             }
         }
+=======
+        Text("화면")
+>>>>>>> 6bc7a01 (feat: bottom navigation)
     }
 }
