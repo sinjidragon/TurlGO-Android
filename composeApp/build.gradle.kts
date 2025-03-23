@@ -43,10 +43,8 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-<<<<<<< HEAD
-=======
             implementation(libs.navigation.compose)
->>>>>>> 6bc7a01 (feat: bottom navigation)
+
         }
     }
 }

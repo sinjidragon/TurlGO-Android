@@ -10,7 +10,7 @@ import com.sinjidragon.turlgo.feature.screen.home.HomeScreen
 import com.sinjidragon.turlgo.feature.screen.profile.ProfileScreen
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController) {
     NavHost(navController, startDestination = NavGroup.HOME) {
         composable(NavGroup.HOME) { HomeScreen() }
         composable(NavGroup.ARTICLE) { ArticleScreen() }
