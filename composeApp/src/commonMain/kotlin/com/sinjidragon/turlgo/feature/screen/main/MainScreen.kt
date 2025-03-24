@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -31,6 +32,7 @@ import com.sinjidragon.turlgo.feature.screen.main.navigation.MainDestination
 import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MainScreen(navHostController: NavHostController) {
@@ -70,13 +72,16 @@ fun BottomNavigationBar(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .height(73.dp)
-            .padding(horizontal = 46.dp),
+            .padding(horizontal = 60.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         items.forEach { destination ->
             val isSelected = currentRoute == destination.route
             BottomCard(
-                icon = if(isSelected) destination.getSelectedIcon() else destination.getIcon(),
+
+                icon = destination.getIcon(),
+                label = destination.label,
+                isSelected = isSelected,
                 onClick = {
                     navController.navigate(destination.route) {
                         launchSingleTop = true
@@ -95,19 +100,29 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun BottomCard(
+    isSelected: Boolean,
     icon: Painter,
+    label: String = "",
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier.clickable(onClick = onClick)
+        modifier = modifier.clickable(onClick = onClick)
     ) {
         Image(
             painter = icon,
             contentDescription = null,
-            modifier = modifier
-                .align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally),
+            colorFilter = ColorFilter.tint(if (isSelected) Color(0xFFEF798A) else Color(0xFF9CA3AF))
+        )
+        Spacer(modifier.height(10.dp))
+        Text(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally),
+            text = label,
+            color = if (isSelected) Color(0xFFEF798A) else Color(0xFF9CA3AF)
         )
     }
 }

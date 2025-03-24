@@ -41,7 +41,7 @@ fun App(
     ) { innerPadding ->
         NavHost(
             navController = navHostController,
-            startDestination = FIRST_ROUTE,
+            startDestination = HOME_ROUTE,
             modifier = Modifier.padding(innerPadding)
         ) {
             mainScreen(

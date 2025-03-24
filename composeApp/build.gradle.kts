@@ -76,5 +76,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.animation.core.android)
+    implementation(libs.androidx.ui.tooling.preview.android)
     debugImplementation(compose.uiTooling)
 }
