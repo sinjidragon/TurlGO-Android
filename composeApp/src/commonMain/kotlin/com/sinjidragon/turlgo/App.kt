@@ -9,13 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.sinjidragon.turlgo.feature.screen.article.navigation.articleScreen
-import com.sinjidragon.turlgo.feature.screen.chat.navigation.chatScreen
+import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.BottomNavigationBar
 import com.sinjidragon.turlgo.feature.screen.main.navigation.mainScreen
-import com.sinjidragon.turlgo.feature.screen.profile.navigation.profileScreen
+import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
@@ -36,9 +35,8 @@ fun App(
                 navHostController = navHostController,
             )
             homeScreen()
-            chatScreen()
-            articleScreen()
-            profileScreen()
+            educationScreen()
+            patScreen()
         }
     }
 }

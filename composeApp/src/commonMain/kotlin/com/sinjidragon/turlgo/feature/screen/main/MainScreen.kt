@@ -24,12 +24,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.sinjidragon.turlgo.feature.screen.article.navigation.articleScreen
-import com.sinjidragon.turlgo.feature.screen.chat.navigation.chatScreen
+import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.navigation.MainDestination
-import com.sinjidragon.turlgo.feature.screen.profile.navigation.profileScreen
+import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
@@ -44,9 +43,8 @@ fun MainScreen(navHostController: NavHostController) {
             modifier = Modifier.padding(it)
         ) {
             homeScreen()
-            articleScreen()
-            profileScreen()
-            chatScreen()
+            patScreen()
+            educationScreen()
         }
     }
 }
@@ -64,9 +62,8 @@ fun BottomNavigationBar(navController: NavController) {
 
     val items = listOf(
         MainDestination.HOME,
-        MainDestination.ARTICLE,
-        MainDestination.CHAT,
-        MainDestination.PROFILE
+        MainDestination.PAT,
+        MainDestination.EDUCATION
     )
 
     Row(
@@ -79,9 +76,7 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEach { destination ->
             val isSelected = currentRoute == destination.route
             BottomCard(
-                icon = destination.getIcon(),
-                text = destination.route,
-                textColor = if (isSelected) Color.Black else Color.Gray,
+                icon = if(isSelected) destination.getSelectedIcon() else destination.getIcon(),
                 onClick = {
                     navController.navigate(destination.route) {
                         launchSingleTop = true
@@ -101,8 +96,6 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun BottomCard(
     icon: Painter,
-    text: String,
-    textColor: Color = Color.Gray,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -115,11 +108,6 @@ fun BottomCard(
             contentDescription = null,
             modifier = modifier
                 .align(Alignment.CenterHorizontally)
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = text,
-            color = textColor,
         )
     }
 }
