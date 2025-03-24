@@ -8,30 +8,22 @@ import com.sinjidragon.turlgo.feature.screen.pat.navigation.PAT_ROUTE
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import turlgo.composeapp.generated.resources.Res
-import turlgo.composeapp.generated.resources.education
-import turlgo.composeapp.generated.resources.education_selected
-import turlgo.composeapp.generated.resources.footprint
-import turlgo.composeapp.generated.resources.footprint_selected
-import turlgo.composeapp.generated.resources.home
-import turlgo.composeapp.generated.resources.home_selected
+import turlgo.composeapp.generated.resources.edu_icon
+import turlgo.composeapp.generated.resources.home_icon
+import turlgo.composeapp.generated.resources.pat_icon
 
 enum class MainDestination(
     val iconRes: DrawableResource,
-    val iconSelectedRes: DrawableResource,
     val route: String,
+    val label: String
 ) {
-    HOME(Res.drawable.home,Res.drawable.home_selected, HOME_ROUTE),
-    PAT(Res.drawable.footprint, Res.drawable.footprint_selected, PAT_ROUTE),
-    EDUCATION(Res.drawable.education, Res.drawable.education_selected, EDUCATION_ROUTE);
+    HOME(Res.drawable.home_icon, HOME_ROUTE, "홈"),
+    PAT(Res.drawable.pat_icon, PAT_ROUTE, "유기견") ,
+    EDUCATION(Res.drawable.edu_icon, EDUCATION_ROUTE, "교육");
 
 
     @Composable
     fun getIcon(): Painter {
         return painterResource(iconRes)
-    }
-
-    @Composable
-    fun getSelectedIcon(): Painter {
-        return painterResource(iconSelectedRes)
     }
 }

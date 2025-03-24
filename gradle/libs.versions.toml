@@ -20,6 +20,7 @@ kotlin = "2.1.0"
 navigationCompose = "2.8.9"
 navigationComposeVersion = "2.8.0-alpha10"
 animationCoreAndroid = "1.7.8"
+uiToolingPreviewAndroid = "1.7.8"
 
 [libraries]
 androidx-graphics = { module = "androidx.compose.ui:graphics", version.ref = "graphics" }
@@ -41,6 +42,7 @@ androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", nam
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrainsNavigationCompose" }
 androidx-animation-core-android = { group = "androidx.compose.animation", name = "animation-core-android", version.ref = "animationCoreAndroid" }
+androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
