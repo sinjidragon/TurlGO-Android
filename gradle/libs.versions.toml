@@ -15,6 +15,7 @@ compose-multiplatform = "1.7.0"
 graphics = "version"
 jetbrainsNavigationCompose = "2.8.0-alpha10"
 junit = "4.13.2"
+kamelImage = "0.7.0"
 kotlin = "2.1.0"
 navigationCompose = "2.8.9"
 navigationComposeVersion = "2.8.0-alpha10"
@@ -24,6 +25,7 @@ androidx-graphics = { module = "androidx.compose.ui:graphics", version.ref = "gr
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "graphics" }
 androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "graphics" }
+kamel-image = { module = "io.kamel:kamel-image", version.ref = "kamelImage" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
