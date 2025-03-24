@@ -5,30 +5,43 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.sinjidragon.turlgo.feature.screen.education.naviagtion.FIRST_ROUTE
 import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScreen
+import com.sinjidragon.turlgo.feature.screen.education.naviagtion.firstScreen
+import com.sinjidragon.turlgo.feature.screen.first.FirstScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.BottomNavigationBar
 import com.sinjidragon.turlgo.feature.screen.main.navigation.mainScreen
 import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 @Composable
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 fun App(
     navHostController: NavHostController = rememberNavController(),
 ) {
+    val currentRoute by navHostController.currentBackStackEntryFlow
+        .map { it.destination.route }
+        .distinctUntilChanged()
+        .collectAsState(initial = HOME_ROUTE)
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController = navHostController)
+            if (currentRoute == "home" || currentRoute == "education" || currentRoute == "pat") {
+                BottomNavigationBar(navController = navHostController)
+            }
         }
     ) { innerPadding ->
         NavHost(
             navController = navHostController,
-            startDestination = HOME_ROUTE,
+            startDestination = FIRST_ROUTE,
             modifier = Modifier.padding(innerPadding)
         ) {
             mainScreen(
@@ -37,6 +50,7 @@ fun App(
             homeScreen()
             educationScreen()
             patScreen()
+            firstScreen()
         }
     }
 }
