@@ -1,7 +1,10 @@
 package com.sinjidragon.turlgo.feature.screen.main
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,11 +18,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -30,9 +37,10 @@ import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.navigation.MainDestination
 import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
+import com.sinjidragon.turlgo.resource.color.AppColors
+import com.sinjidragon.turlgo.resource.function.noRippleClickable
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MainScreen(navHostController: NavHostController) {
@@ -104,25 +112,47 @@ fun BottomCard(
     icon: Painter,
     label: String = "",
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
+    val color = if (isSelected) AppColors.main_color else AppColors.bottom_gray
+
+    var isPressed by remember { mutableStateOf(false) }
+
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.90f else 1.0f,
+        animationSpec = tween(durationMillis = 100),
+        label = "scale"
+    )
+
     Column(
         verticalArrangement = Arrangement.Center,
-        modifier = modifier.clickable(onClick = onClick)
+        modifier = Modifier
+            .scale(scale)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        if (!isSelected){
+                            onClick()
+                        }
+                        isPressed = true
+                        tryAwaitRelease()
+                        isPressed = false
+                    }
+                )
+            }
     ) {
         Image(
             painter = icon,
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
-            colorFilter = ColorFilter.tint(if (isSelected) Color(0xFFEF798A) else Color(0xFF9CA3AF))
+            colorFilter = ColorFilter.tint(color)
         )
-        Spacer(modifier.height(10.dp))
+        Spacer(Modifier.height(10.dp))
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             text = label,
-            color = if (isSelected) Color(0xFFEF798A) else Color(0xFF9CA3AF)
+            color = color
         )
     }
 }
