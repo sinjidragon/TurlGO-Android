@@ -30,7 +30,7 @@ fun MainButton(
     text: String,
     loading: Boolean = false,
     modifier: Modifier = Modifier,
-    color: Color = AppColors.button_pink
+    color: Color = AppColors.main_color
 ) {
     var isPressed by remember { mutableStateOf(false) }
 
