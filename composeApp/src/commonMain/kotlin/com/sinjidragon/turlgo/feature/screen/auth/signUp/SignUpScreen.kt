@@ -3,6 +3,7 @@ package com.sinjidragon.turlgo.feature.screen.auth.signUp
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,11 +35,13 @@ import turlgo.composeapp.generated.resources.turlgologo
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    navigateToLogin: () -> Unit
+    navigateToLogin: () -> Unit,
+    popBackStack: () -> Unit
 ) {
     val isError = remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val interaction = remember { MutableInteractionSource() }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -47,9 +50,12 @@ fun SignUpScreen(
     ) {
         Row(
             modifier = modifier
-                .clickable {
-
-                },
+                .clickable(
+                    interactionSource = interaction,
+                    indication = null
+                ) {
+                    popBackStack()
+                } ,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -118,7 +124,10 @@ fun SignUpScreen(
                 color = AppColors.text_dark_gray,
                 fontSize = 14.sp,
                 modifier = modifier
-                    .clickable {
+                    .clickable(
+                        interactionSource = interaction,
+                        indication = null
+                    ) {
                         navigateToLogin()
                     },
                 textDecoration = TextDecoration.Underline,

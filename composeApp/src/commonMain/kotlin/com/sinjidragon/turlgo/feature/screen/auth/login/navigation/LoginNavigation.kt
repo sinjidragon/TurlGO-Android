@@ -10,11 +10,15 @@ const val LOGIN_ROUTE = "login"
 fun NavController.navigateToLogin() = this.navigate(LOGIN_ROUTE)
 
 fun NavGraphBuilder.loginScreen(
-    navigateToSignUp: () -> Unit
+    navigateToSignUp: () -> Unit,
+    popBackStack: () -> Unit
 ) {
     composable(
         route = LOGIN_ROUTE,
     ) {
-        LoginScreen(navigateToSignUp = navigateToSignUp)
+        LoginScreen(
+            navigateToSignUp = navigateToSignUp,
+            popBackStack = popBackStack
+        )
     }
 }

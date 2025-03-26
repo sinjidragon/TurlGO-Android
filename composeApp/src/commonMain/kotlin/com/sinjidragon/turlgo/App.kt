@@ -58,10 +58,12 @@ fun App(
                 navigateToSignUp = navHostController::navigateToSignUp
             )
             loginScreen(
-                navigateToSignUp = navHostController::navigateToSignUp
+                navigateToSignUp = navHostController::navigateToSignUp,
+                popBackStack = navHostController::popBackStack
             )
             signUpScreen(
-                navigateToLogin = navHostController::navigateToLogin
+                navigateToLogin = navHostController::navigateToLogin,
+                popBackStack = navHostController::popBackStack
             )
         }
     }
