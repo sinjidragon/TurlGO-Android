@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sinjidragon.turlgo.feature.screen.auth.login.viewModel.LoginViewModel
 import com.sinjidragon.turlgo.resource.color.AppColors
 import com.sinjidragon.turlgo.resource.component.botton.CircleButton
 import com.sinjidragon.turlgo.resource.component.textfield.AuthTextField
@@ -36,7 +37,7 @@ import turlgo.composeapp.generated.resources.turlgologo
 fun LoginScreen(
     modifier: Modifier = Modifier,
     navigateToSignUp: () -> Unit,
-    popBackStack: () -> Unit
+    popBackStack: () -> Unit,
 ) {
     val isError = remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }

@@ -50,6 +50,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.android)
             implementation(libs.koin.compose)
+            implementation(libs.koin.androidx.viewmodel)
+            implementation(libs.koin.androidx.compose)
 
 
             implementation(libs.jetbrains.kotlinx.serialization.json)
