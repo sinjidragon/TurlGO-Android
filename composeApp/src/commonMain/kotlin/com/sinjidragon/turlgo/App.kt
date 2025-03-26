@@ -11,10 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.sinjidragon.turlgo.feature.screen.education.naviagtion.FIRST_ROUTE
+import com.sinjidragon.turlgo.feature.screen.auth.login.navigation.loginScreen
+import com.sinjidragon.turlgo.feature.screen.auth.login.navigation.navigateToLogin
+import com.sinjidragon.turlgo.feature.screen.auth.signUp.navigation.navigateToSignUp
+import com.sinjidragon.turlgo.feature.screen.auth.signUp.navigation.signUpScreen
+import com.sinjidragon.turlgo.feature.screen.first.naviagtion.FIRST_ROUTE
 import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScreen
-import com.sinjidragon.turlgo.feature.screen.education.naviagtion.firstScreen
-import com.sinjidragon.turlgo.feature.screen.first.FirstScreen
+import com.sinjidragon.turlgo.feature.screen.first.naviagtion.firstScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.BottomNavigationBar
@@ -50,7 +53,18 @@ fun App(
             homeScreen()
             educationScreen()
             patScreen()
-            firstScreen()
+            firstScreen(
+                navigateToLogin = navHostController::navigateToLogin,
+                navigateToSignUp = navHostController::navigateToSignUp
+            )
+            loginScreen(
+                navigateToSignUp = navHostController::navigateToSignUp,
+                popBackStack = navHostController::popBackStack
+            )
+            signUpScreen(
+                navigateToLogin = navHostController::navigateToLogin,
+                popBackStack = navHostController::popBackStack
+            )
         }
     }
 }

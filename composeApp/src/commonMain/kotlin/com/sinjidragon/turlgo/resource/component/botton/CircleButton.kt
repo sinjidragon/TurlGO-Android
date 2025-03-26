@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,11 +22,12 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import com.sinjidragon.turlgo.App
 import com.sinjidragon.turlgo.resource.color.AppColors
 import com.sinjidragon.turlgo.resource.component.loading.LoadingDots
 
 @Composable
-fun MainButton(
+fun CircleButton(
     onClick: () -> Unit,
     text: String,
     loading: Boolean = false,
@@ -35,7 +37,7 @@ fun MainButton(
     var isPressed by remember { mutableStateOf(false) }
 
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.95f else 1.0f,
+        targetValue = if (isPressed) 0.97f else 1.0f,
         animationSpec = tween(durationMillis = 100),
         label = "scale"
     )
@@ -50,13 +52,11 @@ fun MainButton(
                 .fillMaxWidth()
                 .background(
                     color = color,
-                    shape = RoundedCornerShape(6.dp)
+                    shape = CircleShape
                 )
-                .clickable {
-                    onClick()
-                }
                 .padding(vertical = 16.dp)
                 .pointerInput(Unit) {
+                    onClick()
                     detectTapGestures(
                         onPress = {
                             isPressed = true
