@@ -48,6 +48,9 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
+            implementation(libs.koin.android)
+            implementation(libs.koin.compose)
+
 
             implementation(libs.jetbrains.kotlinx.serialization.json)
         }
