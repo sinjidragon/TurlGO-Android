@@ -118,7 +118,7 @@ fun SignUpScreen(
                 onClick = {},
                 text = "회원가입"
             )
-            Spacer(modifier = modifier.height(6.dp))
+            Spacer(modifier = modifier.height(20.dp))
             Text(
                 text = "기존 계정으로 로그인",
                 color = AppColors.text_dark_gray,
