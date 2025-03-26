@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.2"
+agp = "8.8.2"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
@@ -16,7 +16,10 @@ graphics = "version"
 jetbrainsNavigationCompose = "2.8.0-alpha10"
 junit = "4.13.2"
 kamelImage = "0.7.0"
+koinCore = "4.0.0"
 kotlin = "2.1.0"
+kotlinxSerializationJson = "1.6.3"
+ktorClientCore = "2.3.5"
 navigationCompose = "2.8.9"
 navigationComposeVersion = "2.8.0-alpha10"
 animationCoreAndroid = "1.7.8"
@@ -28,6 +31,7 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "graphics" }
 androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics", version.ref = "graphics" }
 kamel-image = { module = "io.kamel:kamel-image", version.ref = "kamelImage" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -40,6 +44,18 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktorClientCore" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCore" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientCore" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCore" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientCore" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientCore" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktorClientCore" }
+ktor-server-routing = { module = "io.ktor:ktor-server-routing", version.ref = "ktorClientCore" }
+ktor-server-serialization = { module = "io.ktor:ktor-server-serialization", version.ref = "ktorClientCore" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrainsNavigationCompose" }
 androidx-animation-core-android = { group = "androidx.compose.animation", name = "animation-core-android", version.ref = "animationCoreAndroid" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
