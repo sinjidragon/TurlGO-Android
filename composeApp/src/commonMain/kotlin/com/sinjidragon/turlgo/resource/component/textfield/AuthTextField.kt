@@ -95,6 +95,7 @@ fun AuthTextField(
                             }
                             innerTextField()
                         },
+                        singleLine = true,
                         visualTransformation = if (show) VisualTransformation.None else PasswordVisualTransformation()
                     )
                 }

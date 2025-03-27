@@ -10,8 +10,17 @@ plugins {
     alias(libs.plugins.serialization)
 }
 
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+
 kotlin {
     androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -48,19 +57,21 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.koin.core)
-            implementation(libs.koin.android)
             implementation(libs.koin.compose)
-            implementation(libs.koin.androidx.viewmodel)
-            implementation(libs.koin.androidx.compose)
-
 
             implementation(libs.jetbrains.kotlinx.serialization.json)
+
+            implementation(libs.napier)
+
+            implementation(libs.okhttpprofiler)
         }
 
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.cio)
+            implementation(libs.koin.android.v320)
+
         }
 
         iosMain.dependencies {

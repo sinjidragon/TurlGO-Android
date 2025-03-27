@@ -3,35 +3,30 @@ package com.sinjidragon.turlgo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.sinjidragon.turlgo.feature.screen.auth.login.di.loginViewModelModule
+import com.sinjidragon.turlgo.feature.data.login.di.loginRepositoryModule
+import com.sinjidragon.turlgo.feature.initKoin
+import com.sinjidragon.turlgo.feature.network.login.di.loginDataSourceModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startKoin {
-            androidLogger(Level.DEBUG)
-            androidContext(this@MainActivity)
-            modules(
-                listOf(
-                    loginViewModelModule
-                )
-            )
-        }
 
         setContent {
             App()
         }
+
+        initKoin {
+            androidLogger()
+            androidContext(this@MainActivity)
+            androidFileProperties()
+            modules(
+                loginRepositoryModule,
+                loginDataSourceModule
+            )
+        }
     }
 }
 
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
-}

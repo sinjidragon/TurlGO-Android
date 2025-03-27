@@ -5,13 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Response<T>(
-    @SerialName("data") val data: T? = null,
-    @SerialName("message") val message: String,
     @SerialName("status") val status: Int,
+    @SerialName("state") val state: String,
+    @SerialName("message") val message: String,
+    @SerialName("data") val data: T? = null,
 )
 
-@Serializable
-data class DefaultResponse(
-    @SerialName("message") val message: String,
-    @SerialName("status") val status: Int,
-)
+
