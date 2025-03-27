@@ -18,7 +18,10 @@ import com.sinjidragon.turlgo.feature.screen.first.FirstScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.BottomNavigationBar
+import com.sinjidragon.turlgo.feature.screen.main.navigation.MAIN_ROUTE
 import com.sinjidragon.turlgo.feature.screen.main.navigation.mainScreen
+import com.sinjidragon.turlgo.feature.screen.my.navigation.myScreen
+import com.sinjidragon.turlgo.feature.screen.pat.navigation.PAT_ROUTE
 import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -34,7 +37,7 @@ fun App(
         .collectAsState(initial = HOME_ROUTE)
     Scaffold(
         bottomBar = {
-            if (currentRoute == "home" || currentRoute == "education" || currentRoute == "pat") {
+            if (currentRoute == "home" || currentRoute == "education" || currentRoute == "pat" || currentRoute == "my") {
                 BottomNavigationBar(navController = navHostController)
             }
         }
@@ -51,6 +54,7 @@ fun App(
             educationScreen()
             patScreen()
             firstScreen()
+            myScreen()
         }
     }
 }

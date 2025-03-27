@@ -1,26 +1,13 @@
 package com.sinjidragon.turlgo.feature.screen.main
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -32,48 +19,47 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
 import com.sinjidragon.turlgo.feature.screen.main.navigation.MainDestination
+import com.sinjidragon.turlgo.feature.screen.my.navigation.myScreen
 import com.sinjidragon.turlgo.feature.screen.pat.navigation.patScreen
 import com.sinjidragon.turlgo.resource.color.AppColors
-import com.sinjidragon.turlgo.resource.function.noRippleClickable
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScreen
 
 @Composable
 fun MainScreen(navHostController: NavHostController) {
     val mainNavController = rememberNavController()
 
-    Scaffold {
+    Scaffold(
+        bottomBar = { BottomNavigationBar(mainNavController) }
+    ) { paddingValues ->
         NavHost(
             navController = mainNavController,
             startDestination = HOME_ROUTE,
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(paddingValues)
         ) {
             homeScreen()
             patScreen()
             educationScreen()
+            myScreen()
         }
     }
 }
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val currentRoute by navController.currentBackStackEntryFlow
-        .map { it.destination.route }
-        .distinctUntilChanged()
-        .collectAsState(initial = HOME_ROUTE)
-
-    LaunchedEffect(currentRoute) {
-        println(currentRoute)
-    }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route ?: HOME_ROUTE
 
     val items = listOf(
         MainDestination.HOME,
         MainDestination.PAT,
-        MainDestination.EDUCATION
+        MainDestination.EDUCATION,
+        MainDestination.MY
     )
 
     Row(
@@ -84,27 +70,26 @@ fun BottomNavigationBar(navController: NavController) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         items.forEach { destination ->
-            val isSelected = currentRoute == destination.route
             BottomCard(
-
                 icon = destination.getIcon(),
                 label = destination.label,
-                isSelected = isSelected,
+                isSelected = destination.route == currentRoute,
                 onClick = {
                     navController.navigate(destination.route) {
-                        launchSingleTop = true
-                        popUpTo(navController.graph.startDestinationId) {
+                        // 기존 스택에서 같은 경로의 모든 인스턴스 팝
+                        popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
+                        // 동일한 경로를 다시 선택해도 재생성되지 않도록
+                        launchSingleTop = true
+                        // 이전 상태 복원
+                        restoreState = true
                     }
                 }
             )
         }
     }
 }
-
-
-
 
 @Composable
 fun BottomCard(
@@ -113,13 +98,19 @@ fun BottomCard(
     label: String = "",
     onClick: () -> Unit,
 ) {
-    val color = if (isSelected) AppColors.main_color else AppColors.bottom_gray
-
     var isPressed by remember { mutableStateOf(false) }
 
+    val animatedColor by animateColorAsState(
+        animationSpec = tween(
+            durationMillis = 200,
+            delayMillis = 100,
+        ),
+        targetValue = if (isSelected) AppColors.main_color else AppColors.bottom_gray
+    )
+
     val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.90f else 1.0f,
-        animationSpec = tween(durationMillis = 100),
+        targetValue = if (isPressed) 0.60f else 1.0f,
+        animationSpec = tween(durationMillis = 250),
         label = "scale"
     )
 
@@ -130,9 +121,7 @@ fun BottomCard(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onPress = {
-                        if (!isSelected){
-                            onClick()
-                        }
+                        onClick()
                         isPressed = true
                         tryAwaitRelease()
                         isPressed = false
@@ -145,14 +134,14 @@ fun BottomCard(
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
-            colorFilter = ColorFilter.tint(color)
+            colorFilter = ColorFilter.tint(animatedColor)
         )
         Spacer(Modifier.height(10.dp))
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             text = label,
-            color = color
+            color = animatedColor
         )
     }
 }
