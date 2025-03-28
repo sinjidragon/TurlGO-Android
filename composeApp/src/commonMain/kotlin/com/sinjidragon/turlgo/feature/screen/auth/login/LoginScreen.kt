@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sinjidragon.turlgo.feature.screen.auth.login.model.LoginPendingUiState
 import com.sinjidragon.turlgo.feature.screen.auth.login.viewModel.LoginViewModel
 import com.sinjidragon.turlgo.resource.color.AppColors
 import com.sinjidragon.turlgo.resource.component.botton.CircleButton
@@ -38,11 +41,23 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     navigateToSignUp: () -> Unit,
     popBackStack: () -> Unit,
+    viewModel: LoginViewModel = viewModel()
 ) {
     val isError = remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val interaction = remember { MutableInteractionSource() }
+    val state by viewModel.state.collectAsState()
+    var token by remember { mutableStateOf("") }
+
+    when (state.loginUiState) {
+        is LoginPendingUiState.Success -> {
+            token = state.token.accessToken.toString()
+        }
+
+        else -> {
+        }
+    }
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -75,6 +90,7 @@ fun LoginScreen(
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(token)
             Spacer(modifier = modifier.height(67.dp))
             Image(
                 painter = painterResource(Res.drawable.turlgologo),
@@ -89,6 +105,7 @@ fun LoginScreen(
         Column(
             modifier = modifier
                 .padding(horizontal = 30.dp)
+                .padding(top = 100.dp)
                 .padding(bottom = 100.dp)
                 .align(alignment = Alignment.Center)
         ) {
@@ -116,7 +133,9 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CircleButton(
-                onClick = {},
+                onClick = {
+                    viewModel.login(text, password)
+                },
                 text = "로그인"
             )
             Spacer(modifier = modifier.height(20.dp))

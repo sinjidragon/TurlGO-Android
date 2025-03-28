@@ -8,7 +8,10 @@ import com.sinjidragon.turlgo.feature.network.exception.UnauthorizedException
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
+import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.RedirectResponseException
+import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
@@ -23,6 +26,7 @@ import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
+import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
@@ -41,11 +45,12 @@ val networkCoreModule = module {
         getHttpClient {
             install(ContentNegotiation) {
                 json(
-                    Json {
+                    contentType = ContentType.Any,
+                    json = Json {
                         prettyPrint = true
                         isLenient = true
                         ignoreUnknownKeys = true
-                    },
+                    }
                 )
             }
 
