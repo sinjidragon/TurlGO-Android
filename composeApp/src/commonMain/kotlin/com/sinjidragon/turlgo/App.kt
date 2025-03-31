@@ -20,6 +20,7 @@ import com.sinjidragon.turlgo.feature.screen.education.naviagtion.educationScree
 import com.sinjidragon.turlgo.feature.screen.first.naviagtion.firstScreen
 import com.sinjidragon.turlgo.feature.screen.home.navigation.HOME_ROUTE
 import com.sinjidragon.turlgo.feature.screen.home.navigation.homeScreen
+import com.sinjidragon.turlgo.feature.screen.home.navigation.navigateToHome
 import com.sinjidragon.turlgo.feature.screen.main.BottomNavigationBar
 import com.sinjidragon.turlgo.feature.screen.main.navigation.MAIN_ROUTE
 import com.sinjidragon.turlgo.feature.screen.main.navigation.mainScreen
@@ -62,6 +63,7 @@ fun App(
             )
             loginScreen(
                 navigateToSignUp = navHostController::navigateToSignUp,
+                navigateToHome = navHostController::navigateToHome,
                 popBackStack = navHostController::popBackStack
             )
             signUpScreen(

@@ -12,11 +12,7 @@ sealed interface LoginPendingUiState {
         val token: Token,
     ) : LoginPendingUiState
     data object Loading : LoginPendingUiState
-    data object Error : LoginPendingUiState
+    data class Error(
+        val error: String?
+    ) : LoginPendingUiState
 }
-
-data class Token(
-    val access: String,
-    val refresh: String,
-    val tokenType: String
-)

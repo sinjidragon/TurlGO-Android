@@ -3,8 +3,8 @@ package com.sinjidragon.turlgo.feature.network.core.di
 import com.sinjidragon.turlgo.feature.logging.logging
 import com.sinjidragon.turlgo.feature.network.core.TurlGoUrl
 import com.sinjidragon.turlgo.feature.network.core.model.Response
-import com.sinjidragon.turlgo.feature.network.core.model.TokenResponse
 import com.sinjidragon.turlgo.feature.network.exception.UnauthorizedException
+import com.sinjidragon.turlgo.feature.network.login.model.LoginResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
@@ -82,7 +82,7 @@ val networkCoreModule = module {
                         val accessToken = client.post(TurlGoUrl.Auth.LOGIN) {
                             markAsRefreshTokenRequest()
 //                            setBody(TokenRequest(id = user.id, pw = user.pw))
-                        }.body<Response<TokenResponse>>().data?.accessToken ?: ""
+                        }.body<Response<LoginResponse>>().data?.accessToken ?: ""
 
 //                        datastore.saveToken(accessToken)
 
@@ -91,6 +91,7 @@ val networkCoreModule = module {
                     sendWithoutRequest { request ->
                         when (request.url.toString()) {
                             TurlGoUrl.Auth.LOGIN -> false
+                            TurlGoUrl.Auth.SIGNUP -> false
                             else -> true
                         }
                     }
