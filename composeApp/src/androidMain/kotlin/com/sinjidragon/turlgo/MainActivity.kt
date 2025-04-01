@@ -22,10 +22,6 @@ class MainActivity : ComponentActivity() {
             androidLogger()
             androidContext(this@MainActivity)
             androidFileProperties()
-            modules(
-                loginRepositoryModule,
-                loginDataSourceModule
-            )
         }
     }
 }

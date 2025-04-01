@@ -32,6 +32,7 @@ fun CircleButton(
     text: String,
     loading: Boolean = false,
     modifier: Modifier = Modifier,
+    enable: Boolean = false,
     color: Color = AppColors.main_color
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -56,9 +57,9 @@ fun CircleButton(
                 )
                 .padding(vertical = 16.dp)
                 .pointerInput(Unit) {
-                    onClick()
                     detectTapGestures(
                         onPress = {
+                            onClick()
                             isPressed = true
                             tryAwaitRelease()
                             isPressed = false

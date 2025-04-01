@@ -11,6 +11,7 @@ fun NavController.navigateToLogin() = this.navigate(LOGIN_ROUTE)
 
 fun NavGraphBuilder.loginScreen(
     navigateToSignUp: () -> Unit,
+    navigateToHome: () -> Unit,
     popBackStack: () -> Unit
 ) {
     composable(
@@ -18,6 +19,7 @@ fun NavGraphBuilder.loginScreen(
     ) {
         LoginScreen(
             navigateToSignUp = navigateToSignUp,
+            navigateToHome = navigateToHome,
             popBackStack = popBackStack
         )
     }

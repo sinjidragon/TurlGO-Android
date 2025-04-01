@@ -4,6 +4,6 @@ import org.koin.dsl.module
 //import org.koin.core.module.dsl.viewModelOf
 import com.sinjidragon.turlgo.feature.screen.auth.login.viewModel.LoginViewModel
 
-//val loginViewModelModule = module {
+val loginViewModelModule = module {
 //    viewModelOf(::LoginViewModel)
-//}
+}
