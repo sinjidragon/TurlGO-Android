@@ -70,6 +70,7 @@ fun App(
                 navigateToLogin = navHostController::navigateToLogin,
                 popBackStack = navHostController::popBackStack
             )
+            myScreen()
         }
     }
 }
